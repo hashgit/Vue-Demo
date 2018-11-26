@@ -1,14 +1,21 @@
 <template>
   <div class="hello">
-    <h1>Show All</h1>
+    <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ShowAll',
-  props: {
-    msg: String
+  data() {
+    return {
+      msg: 'Show All'
+    };
+  },
+
+  mounted() {
+    // eslint-disable-next-line
+    console.log('mounted show all');
   }
 }
 </script>
