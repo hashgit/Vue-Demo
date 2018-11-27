@@ -15,10 +15,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CreateCustomer from './components/CreateCustomer.vue'
 import ShowAll from './components/ShowAll.vue'
+import Home from './components/Home.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/', component: Home },
   { path: '/create', component: CreateCustomer },
   { path: '/list', component: ShowAll }
 ]
