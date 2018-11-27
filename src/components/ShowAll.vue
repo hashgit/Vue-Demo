@@ -51,10 +51,6 @@ export default {
       .catch(() => {
         this.error = true;
       });
-
-    // eslint-disable-next-line
-    console.log('mounted show all');
-
   }
 }
 </script>

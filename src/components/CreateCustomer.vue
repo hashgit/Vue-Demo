@@ -5,16 +5,14 @@
       <div class="notice">
         {{ message }}
       </div>
-      <div class="errors" v-if="errors && errors.length">
-        <p v-for="(error, ind) in errors" :key="ind">
-          {{ error }}
-        </p>
+      <div class="errors" v-if="nameInvalid">
+          Name must have at least 2 characters
       </div>
       <p>
         <input type="text" class="field" placeholder="customer name" v-model="name" />
       </p>
       <p>
-        <input type="button" class="input" @click="submit" value="Create" />
+        <input type="button" :disabled="nameInvalid" class="input" @click="submit" value="Create" />
       </p>
     </div>
   </div>
@@ -29,34 +27,28 @@ export default {
   data() {
     return {
       name: '',
-      errors: [],
       message: null,
     };
   },
 
+  computed: {
+    nameInvalid() {
+      return this.name === '' || this.name.length < 2;
+    }
+  },
+
   methods: {
     submit: function() {
-      // eslint-disable-next-line
-      console.log(this.name);
-
-      if (this.name === '' || this.name.length < 2) {
-        this.errors.push('Name must have at least 2 characters');
-        this.message = null;
-      } else {
-        axios.post('http://localhost:3000/customer/', {
-          id: uuid(),
-          name: this.name
-        })
-        .then(() => {
-          this.name = '';
-          this.errors = [];
-          this.message = 'Created!';
-        })
-        .catch(() => {
-          this.errors = ['Failed to create customer!'];
-          this.message = null;
-        });
-      }
+      axios.post('http://localhost:3000/customer/', {
+        id: uuid(),
+        name: this.name
+      })
+      .then(() => {
+        this.message = 'Created!';
+      })
+      .catch(() => {
+        this.message = 'Failed!';
+      });
     }
   }
 }
